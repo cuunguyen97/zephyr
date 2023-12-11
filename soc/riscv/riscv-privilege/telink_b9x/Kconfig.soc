@@ -16,6 +16,11 @@ config B9xCPU_RISCV32
 
 endchoice
 
+config TELINK_B92_PMP
+	bool "Support Hardware Memory Protection"
+	default n
+	select RISCV_PMP
+
 config TELINK_B9x_HWDSP
 	bool "Support Hardware DSP"
 	select RISCV_SOC_CONTEXT_SAVE
@@ -51,6 +56,16 @@ config SOC_RISCV_TELINK_B92
 	select INCLUDE_RESET_VECTOR
 
 endchoice
+
+config PMP_POWER_OF_TWO_ALIGNMENT
+	bool
+	depends on RISCV_PMP
+	default n
+
+config PMP_SLOTS
+	int
+	depends on RISCV_PMP
+	default 16
 
 config PM_DEVICE
 	default y if PM
